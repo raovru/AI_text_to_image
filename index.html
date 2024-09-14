@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>AI Text to Image App</title>
-    <link rel="stylesheet" href="/static/stylesheet.css" />
-    <script src="https://unpkg.com/htmx.org@1.9.3/dist/htmx.min.js"></script>
-  </head>
-  <body>
-    <h1>AI Text to Image App</h1>
-    <p>
-      Welcome to the AI Text to Image App! This app leverages the power of
-      <b>Artificial Intelligence APIs</b> to generate images based on the text
-      you provide.
-    </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>AI Text to Image App</title>
+  <link rel="stylesheet" href="/static/stylesheet.css" />
+  <script src="https://unpkg.com/htmx.org@1.9.3/dist/htmx.min.js"></script>
+</head>
+<body>
+  <h1>AI Text to Image App</h1>
+  <p>
+    Welcome to the AI Text to Image App! This app leverages the power of
+    <b>Artificial Intelligence APIs</b> to generate images based on the text
+    you provide.
+  </p>
 
-    <form
-      id="text-form"
-      hx-post="/textToImage"
-      hx-target="#result-text-box"
-      hx-swap="outerHTML"
-    >
-      <div class="container">
-        <div class="text-box">
-          <textarea
-            id="text"
-            name="text"
-            placeholder="Enter some text to generate an image"
-          ></textarea>
-          <button type="submit" id="submit-button" class="submit-button">
-            <span class="submit-button-text">Generate Image</span>
-          </button>
-        </div>
+  <form
+    id="text-form"
+    hx-post="/textToImage"
+    hx-target="#result-image-box"
+    hx-swap="outerHTML"
+  >
+    <div class="container">
+      <div class="text-box">
+        <textarea
+          id="text"
+          name="text"
+          placeholder="Enter some text to generate an image"
+        ></textarea>
+        <button type="submit" id="submit-button" class="submit-button">
+          <span class="submit-button-text">Generate Image</span>
+        </button>
       </div>
-    </form>
-
-    <div id="result-text-box">
-      <!-- Generated image or error message will appear here -->
+      <div id="result-image-box" class="image-box">
+        <!-- Generated image will appear here -->
+      </div>
     </div>
-  </body>
+  </form>
+</body>
 </html>
