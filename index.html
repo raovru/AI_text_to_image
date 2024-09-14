@@ -39,4 +39,25 @@
     </div>
   </form>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('text-form');
+    const submitButton = document.getElementById('submit-button');
+    
+    form.addEventListener('submit', function() {
+      submitButton.disabled = true;
+      submitButton.classList.add('submit-button--loading');
+      
+      // Handle form submission, e.g., using fetch or htmx
+      // Assuming that you use htmx, the loading state will be reset after the response
+      
+      // Example with htmx:
+      htmx.on('htmx:afterSwap', function(event) {
+        submitButton.disabled = false;
+        submitButton.classList.remove('submit-button--loading');
+      });
+    });
+  });
+</script>
+
 </html>
