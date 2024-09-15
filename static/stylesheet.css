@@ -101,9 +101,6 @@ textarea {
   }
 }
 
-
-
-
 #result-image-box {
   width: 400px; /* Container size for consistency */
   height: 400px; /* Container size for consistency */
@@ -114,8 +111,6 @@ textarea {
 }
 
 #result-image-box img {
-  width: 400px;  /* Set image width to 400px */
-  height: 400px; /* Set image height to 400px */
   object-fit: cover; /* Ensure the image covers the specified area */
   border-radius: 4px;
   border: 1px solid #ddd;
