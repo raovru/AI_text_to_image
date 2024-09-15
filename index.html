@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>AI Text to Image App</title>
   <link rel="stylesheet" href="/static/stylesheet.css" />
-  <script src="https://unpkg.com/htmx.org@1.9.3/dist/htmx.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
   <h1>AI Text to Image App</h1>
@@ -18,9 +18,8 @@
 
   <form
     id="text-form"
-    hx-post="/textToImage"
-    hx-target="#result-image-box"
-    hx-swap="outerHTML"
+    method="POST"
+    enctype="multipart/form-data"
   >
     <div class="container">
       <div class="text-box">
@@ -40,20 +39,33 @@
   </form>
 </body>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('text-form');
-    const submitButton = document.getElementById('submit-button');
-    
-    form.addEventListener('submit', function() {
-      submitButton.disabled = true;
-      submitButton.classList.add('submit-button--loading');
+  const form = document.querySelector('#text-form');
+  const submitButton = document.querySelector('#submit-button');
+  const resultImageBox = document.querySelector('#result-image-box');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    submitButton.disabled = true;
+    submitButton.classList.add("submit-button--loading");
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await axios.post('http://localhost:8000/textToImage', formData);
       
-      
-      htmx.on('htmx:afterSwap', function(event) {
-        submitButton.disabled = false;
-        submitButton.classList.remove('submit-button--loading');
-      });
-    });
+      if (response.data.image) {
+        resultImageBox.innerHTML = `<img src="data:image/jpeg;base64,${response.data.image}" alt="Generated Image"/>`;
+      } else {
+        resultImageBox.innerHTML = "<p>Error generating image</p>";
+      }
+    } catch (error) {
+      resultImageBox.innerHTML = "<p>Error generating image</p>";
+      console.error('There was a problem with the fetch operation:', error);
+    } finally {
+      submitButton.disabled = false;
+      submitButton.classList.remove('submit-button--loading');
+    }
   });
 </script>
 
